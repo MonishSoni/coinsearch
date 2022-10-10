@@ -2,10 +2,12 @@ import React from 'react'
 import CoinItem from './CoinItem'
 import Coin from '../routes/Coin'
 import { Link } from 'react-router-dom'
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 import './Coins.css'
 
-const Coins = (props) => {
+const Coins = ({coins,handlePageChange }) => {
     return (
         <div className='container'>
             <div>
@@ -18,9 +20,9 @@ const Coins = (props) => {
                     <p className='hide-mobile'>Mkt Cap</p>
                 </div>
 
-                {props.coins.map(coins => {
+                {coins.map(coins => {
                     return (
-                        <Link to={`/coin/${coins.id}`} element={<Coin />} key={coins.id}>
+                        <Link to={`/${coins.id}`} element={<Coin />} key={coins.id}>
                             <CoinItem coins={coins} />
                         </Link>
 
@@ -28,6 +30,12 @@ const Coins = (props) => {
                 })}
 
             </div>
+            <div className="pagination">
+                <Stack alignItems='center' spacing={2}>
+                    <Pagination onChange={(e)=> handlePageChange(e.target.textContent)} count={30} variant="outlined" shape="rounded" />
+                </Stack>
+            </div>
+
         </div>
     )
 }
